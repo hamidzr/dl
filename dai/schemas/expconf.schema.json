@@ -1,0 +1,966 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/determined-ai/determined/master/pkg/schemas/expconf/experiment-config-v0",
+  "$ref": "#/$defs/ExperimentConfigV0",
+  "$defs": {
+    "AuthConfig": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "auth": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "serveraddress": {
+          "type": "string"
+        },
+        "identitytoken": {
+          "type": "string"
+        },
+        "registrytoken": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "BindMountV0": {
+      "properties": {
+        "host_path": {
+          "type": "string"
+        },
+        "container_path": {
+          "type": "string"
+        },
+        "read_only": {
+          "type": "boolean"
+        },
+        "propagation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "host_path",
+        "container_path",
+        "read_only",
+        "propagation"
+      ]
+    },
+    "BindMountsConfigV0": {
+      "items": {
+        "$ref": "#/$defs/BindMountV0"
+      },
+      "type": "array"
+    },
+    "CheckpointStorageConfigV0": {
+      "properties": {
+        "save_experiment_best": {
+          "type": "integer"
+        },
+        "save_trial_best": {
+          "type": "integer"
+        },
+        "save_trial_latest": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "save_experiment_best",
+        "save_trial_best",
+        "save_trial_latest"
+      ]
+    },
+    "ContainerState": {
+      "properties": {
+        "waiting": {
+          "$ref": "#/$defs/ContainerStateWaiting"
+        },
+        "running": {
+          "$ref": "#/$defs/ContainerStateRunning"
+        },
+        "terminated": {
+          "$ref": "#/$defs/ContainerStateTerminated"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ContainerStateRunning": {
+      "properties": {
+        "startedAt": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ContainerStateTerminated": {
+      "properties": {
+        "exitCode": {
+          "type": "integer"
+        },
+        "signal": {
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "startedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "finishedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "containerID": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "exitCode"
+      ]
+    },
+    "ContainerStateWaiting": {
+      "properties": {
+        "reason": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ContainerStatus": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/ContainerState"
+        },
+        "lastState": {
+          "$ref": "#/$defs/ContainerState"
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "restartCount": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageID": {
+          "type": "string"
+        },
+        "containerID": {
+          "type": "string"
+        },
+        "started": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "name",
+        "ready",
+        "restartCount",
+        "image",
+        "imageID"
+      ]
+    },
+    "DataLayerConfigV0": {
+      "properties": {},
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "DeviceV0": {
+      "properties": {
+        "host_path": {
+          "type": "string"
+        },
+        "container_path": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "host_path",
+        "container_path",
+        "mode"
+      ]
+    },
+    "DevicesConfigV0": {
+      "items": {
+        "$ref": "#/$defs/DeviceV0"
+      },
+      "type": "array"
+    },
+    "EntrypointV0": {
+      "properties": {
+        "RawEntrypoint": true
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "RawEntrypoint"
+      ]
+    },
+    "EnvironmentConfigV0": {
+      "properties": {
+        "image": {
+          "$ref": "#/$defs/EnvironmentImageMapV0"
+        },
+        "environment_variables": {
+          "$ref": "#/$defs/EnvironmentVariablesMapV0"
+        },
+        "ports": {
+          "patternProperties": {
+            ".*": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "registry_auth": {
+          "$ref": "#/$defs/AuthConfig"
+        },
+        "force_pull_image": {
+          "type": "boolean"
+        },
+        "pod_spec": {
+          "$ref": "#/$defs/PodSpec"
+        },
+        "add_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "drop_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "image",
+        "environment_variables",
+        "ports",
+        "registry_auth",
+        "force_pull_image",
+        "pod_spec",
+        "add_capabilities",
+        "drop_capabilities"
+      ]
+    },
+    "EnvironmentImageMapV0": {
+      "properties": {
+        "cpu": {
+          "type": "string"
+        },
+        "cuda": {
+          "type": "string"
+        },
+        "rocm": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "cpu",
+        "cuda",
+        "rocm"
+      ]
+    },
+    "EnvironmentVariablesMapV0": {
+      "properties": {
+        "cpu": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "cuda": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rocm": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "cpu",
+        "cuda",
+        "rocm"
+      ]
+    },
+    "ExperimentConfigV0": {
+      "properties": {
+        "bind_mounts": {
+          "$ref": "#/$defs/BindMountsConfigV0"
+        },
+        "checkpoint_policy": {
+          "type": "string"
+        },
+        "checkpoint_storage": {
+          "$ref": "#/$defs/CheckpointStorageConfigV0"
+        },
+        "data_layer": {
+          "$ref": "#/$defs/DataLayerConfigV0"
+        },
+        "data": {
+          "type": "object"
+        },
+        "debug": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "entrypoint": {
+          "$ref": "#/$defs/EntrypointV0"
+        },
+        "environment": {
+          "$ref": "#/$defs/EnvironmentConfigV0"
+        },
+        "hyperparameters": {
+          "$ref": "#/$defs/HyperparametersV0"
+        },
+        "labels": {
+          "$ref": "#/$defs/LabelsV0"
+        },
+        "max_restarts": {
+          "type": "integer"
+        },
+        "min_checkpoint_period": {
+          "$ref": "#/$defs/LengthV0"
+        },
+        "min_validation_period": {
+          "$ref": "#/$defs/LengthV0"
+        },
+        "name": {
+          "$ref": "#/$defs/Name"
+        },
+        "optimizations": {
+          "$ref": "#/$defs/OptimizationsConfigV0"
+        },
+        "perform_initial_validation": {
+          "type": "boolean"
+        },
+        "profiling": {
+          "$ref": "#/$defs/ProfilingConfigV0"
+        },
+        "project": {
+          "type": "string"
+        },
+        "records_per_epoch": {
+          "type": "integer"
+        },
+        "reproducibility": {
+          "$ref": "#/$defs/ReproducibilityConfigV0"
+        },
+        "resources": {
+          "$ref": "#/$defs/ResourcesConfigV0"
+        },
+        "scheduling_unit": {
+          "type": "integer"
+        },
+        "searcher": {
+          "$ref": "#/$defs/SearcherConfigV0"
+        },
+        "security": {
+          "$ref": "#/$defs/SecurityConfigV0"
+        },
+        "tensorboard_storage": {
+          "$ref": "#/$defs/TensorboardStorageConfigV0"
+        },
+        "workspace": {
+          "type": "string"
+        },
+        "slurm": {
+          "$ref": "#/$defs/SlurmConfigV0"
+        },
+        "pbs": {
+          "$ref": "#/$defs/PbsConfigV0"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "bind_mounts",
+        "checkpoint_policy",
+        "checkpoint_storage",
+        "data_layer",
+        "data",
+        "debug",
+        "description",
+        "entrypoint",
+        "environment",
+        "hyperparameters",
+        "labels",
+        "max_restarts",
+        "min_checkpoint_period",
+        "min_validation_period",
+        "name",
+        "optimizations",
+        "perform_initial_validation",
+        "profiling",
+        "project",
+        "records_per_epoch",
+        "reproducibility",
+        "resources",
+        "scheduling_unit",
+        "searcher",
+        "workspace"
+      ]
+    },
+    "FieldsV1": {
+      "properties": {},
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "HyperparameterV0": {
+      "properties": {},
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "HyperparametersV0": {
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/HyperparameterV0"
+        }
+      },
+      "type": "object"
+    },
+    "KerberosConfigV0": {
+      "properties": {
+        "config_file": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "config_file"
+      ]
+    },
+    "LabelsV0": {
+      "patternProperties": {
+        ".*": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "LengthV0": {
+      "properties": {
+        "Unit": {
+          "type": "string"
+        },
+        "Units": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Unit",
+        "Units"
+      ]
+    },
+    "ManagedFieldsEntry": {
+      "properties": {
+        "manager": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "apiVersion": {
+          "type": "string"
+        },
+        "time": {
+          "$ref": "#/$defs/Time"
+        },
+        "fieldsType": {
+          "type": "string"
+        },
+        "fieldsV1": {
+          "$ref": "#/$defs/FieldsV1"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Name": {
+      "properties": {
+        "RawString": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "RawString"
+      ]
+    },
+    "ObjectMeta": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "generateName": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "selfLink": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        },
+        "resourceVersion": {
+          "type": "string"
+        },
+        "generation": {
+          "type": "integer"
+        },
+        "creationTimestamp": {
+          "$ref": "#/$defs/Time"
+        },
+        "deletionTimestamp": {
+          "$ref": "#/$defs/Time"
+        },
+        "deletionGracePeriodSeconds": {
+          "type": "integer"
+        },
+        "labels": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "annotations": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "ownerReferences": {
+          "items": {
+            "$ref": "#/$defs/OwnerReference"
+          },
+          "type": "array"
+        },
+        "finalizers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "clusterName": {
+          "type": "string"
+        },
+        "managedFields": {
+          "items": {
+            "$ref": "#/$defs/ManagedFieldsEntry"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "OptimizationsConfigV0": {
+      "properties": {
+        "aggregation_frequency": {
+          "type": "integer"
+        },
+        "average_aggregated_gradients": {
+          "type": "boolean"
+        },
+        "average_training_metrics": {
+          "type": "boolean"
+        },
+        "gradient_compression": {
+          "type": "boolean"
+        },
+        "grad_updates_size_file": {
+          "type": "string"
+        },
+        "mixed_precision": {
+          "type": "string"
+        },
+        "tensor_fusion_threshold": {
+          "type": "integer"
+        },
+        "tensor_fusion_cycle_time": {
+          "type": "integer"
+        },
+        "auto_tune_tensor_fusion": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "aggregation_frequency",
+        "average_aggregated_gradients",
+        "average_training_metrics",
+        "gradient_compression",
+        "grad_updates_size_file",
+        "tensor_fusion_threshold",
+        "tensor_fusion_cycle_time",
+        "auto_tune_tensor_fusion"
+      ]
+    },
+    "OwnerReference": {
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        },
+        "controller": {
+          "type": "boolean"
+        },
+        "blockOwnerDeletion": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "apiVersion",
+        "kind",
+        "name",
+        "uid"
+      ]
+    },
+    "PbsConfigV0": {
+      "properties": {
+        "slots_per_node": {
+          "type": "integer"
+        },
+        "pbsbatch_args": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PodCondition": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "lastProbeTime": {
+          "$ref": "#/$defs/Time"
+        },
+        "lastTransitionTime": {
+          "$ref": "#/$defs/Time"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "type",
+        "status"
+      ]
+    },
+    "PodIP": {
+      "properties": {
+        "ip": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PodSpec": {
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "apiVersion": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/$defs/ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/$defs/PodSpec"
+        },
+        "status": {
+          "$ref": "#/$defs/PodStatus"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PodStatus": {
+      "properties": {
+        "phase": {
+          "type": "string"
+        },
+        "conditions": {
+          "items": {
+            "$ref": "#/$defs/PodCondition"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "nominatedNodeName": {
+          "type": "string"
+        },
+        "hostIP": {
+          "type": "string"
+        },
+        "podIP": {
+          "type": "string"
+        },
+        "podIPs": {
+          "items": {
+            "$ref": "#/$defs/PodIP"
+          },
+          "type": "array"
+        },
+        "startTime": {
+          "$ref": "#/$defs/Time"
+        },
+        "initContainerStatuses": {
+          "items": {
+            "$ref": "#/$defs/ContainerStatus"
+          },
+          "type": "array"
+        },
+        "containerStatuses": {
+          "items": {
+            "$ref": "#/$defs/ContainerStatus"
+          },
+          "type": "array"
+        },
+        "qosClass": {
+          "type": "string"
+        },
+        "ephemeralContainerStatuses": {
+          "items": {
+            "$ref": "#/$defs/ContainerStatus"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ProfilingConfigV0": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "begin_on_batch": {
+          "type": "integer"
+        },
+        "end_after_batch": {
+          "type": "integer"
+        },
+        "sync_timings": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "enabled",
+        "begin_on_batch",
+        "end_after_batch",
+        "sync_timings"
+      ]
+    },
+    "ReproducibilityConfigV0": {
+      "properties": {
+        "experiment_seed": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "experiment_seed"
+      ]
+    },
+    "ResourcesConfigV0": {
+      "properties": {
+        "slots": {
+          "type": "integer"
+        },
+        "max_slots": {
+          "type": "integer"
+        },
+        "slots_per_trial": {
+          "type": "integer"
+        },
+        "weight": {
+          "type": "number"
+        },
+        "native_parallel": {
+          "type": "boolean"
+        },
+        "shm_size": {
+          "type": "integer"
+        },
+        "agent_label": {
+          "type": "string"
+        },
+        "resource_pool": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer"
+        },
+        "devices": {
+          "$ref": "#/$defs/DevicesConfigV0"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "max_slots",
+        "slots_per_trial",
+        "weight",
+        "shm_size",
+        "agent_label",
+        "resource_pool",
+        "priority",
+        "devices"
+      ]
+    },
+    "SearcherConfigV0": {
+      "properties": {
+        "metric": {
+          "type": "string"
+        },
+        "smaller_is_better": {
+          "type": "boolean"
+        },
+        "source_trial_id": {
+          "type": "integer"
+        },
+        "source_checkpoint_uuid": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "metric",
+        "smaller_is_better",
+        "source_trial_id",
+        "source_checkpoint_uuid"
+      ]
+    },
+    "SecurityConfigV0": {
+      "properties": {
+        "kerberos": {
+          "$ref": "#/$defs/KerberosConfigV0"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "kerberos"
+      ]
+    },
+    "SlurmConfigV0": {
+      "properties": {
+        "slots_per_node": {
+          "type": "integer"
+        },
+        "gpu_type": {
+          "type": "string"
+        },
+        "sbatch_args": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "TensorboardStorageConfigV0": {
+      "properties": {},
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Time": {
+      "properties": {},
+      "additionalProperties": false,
+      "type": "object"
+    }
+  }
+}
