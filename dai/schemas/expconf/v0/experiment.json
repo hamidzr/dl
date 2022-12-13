@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "http://determined.ai/schemas/expconf/v0/experiment.json",
+    "$id": "https://hzdl.netlify.app/dai/schemas/expconf/v0/experiment.json",
     "title": "ExperimentConfig",
     "type": "object",
     "additionalProperties": false,
@@ -19,7 +19,7 @@
                 "null"
             ],
             "default": [],
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/bind-mounts.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/bind-mounts.json"
         },
         "checkpoint_policy": {
             "enum": [
@@ -36,7 +36,7 @@
                 "null"
             ],
             "default": null,
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/checkpoint-storage.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/checkpoint-storage.json"
         },
         "data": {
             "type": [
@@ -53,7 +53,7 @@
             "default": {
                 "type": "shared_fs"
             },
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/data-layer.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/data-layer.json"
         },
         "debug": {
             "type": [
@@ -86,7 +86,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/environment.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/environment.json"
         },
         "hyperparameters": {
             "type": [
@@ -94,7 +94,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/hyperparameters.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameters.json"
         },
         "internal": {
             "$comment": "allow forking pre-0.15.6 non-Native-API experiments",
@@ -127,7 +127,7 @@
             "default": {
                 "batches": 0
             },
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/length.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/length.json"
         },
         "min_validation_period": {
             "type": [
@@ -137,7 +137,7 @@
             "default": {
                 "batches": 0
             },
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/length.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/length.json"
         },
         "name": {
             "type": [
@@ -152,7 +152,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/optimizations.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/optimizations.json"
         },
         "pbs": {
             "type": [
@@ -160,7 +160,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/hpc-cluster-pbs.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hpc-cluster-pbs.json"
         },
         "perform_initial_validation": {
             "type": [
@@ -175,7 +175,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/profiling.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/profiling.json"
         },
         "project": {
             "type": [
@@ -197,7 +197,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/reproducibility.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/reproducibility.json"
         },
         "resources": {
             "type": [
@@ -205,7 +205,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/resources.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/resources.json"
         },
         "scheduling_unit": {
             "type": [
@@ -221,7 +221,7 @@
                 "null"
             ],
             "default": null,
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/searcher.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/searcher.json"
         },
         "security": {
             "type": [
@@ -229,7 +229,7 @@
                 "null"
             ],
             "default": null,
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/security.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/security.json"
         },
         "slurm": {
             "type": [
@@ -237,7 +237,7 @@
                 "null"
             ],
             "default": {},
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/hpc-cluster-slurm.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hpc-cluster-slurm.json"
         },
         "tensorboard_storage": {
             "type": [
@@ -245,7 +245,7 @@
                 "null"
             ],
             "default": null,
-            "optionalRef": "http://determined.ai/schemas/expconf/v0/tensorboard-storage.json"
+            "optionalRef": "https://hzdl.netlify.app/dai/schemas/expconf/v0/tensorboard-storage.json"
         },
         "workspace": {
             "type": [
@@ -273,7 +273,7 @@
                 "properties": {
                     "hyperparameters": {
                         "additionalProperties": {
-                            "$ref": "http://determined.ai/schemas/expconf/v0/check-grid-hyperparameter.json"
+                            "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/check-grid-hyperparameter.json"
                         }
                     }
                 }
@@ -291,13 +291,13 @@
             "then": {
                 "properties": {
                     "min_validation_period": {
-                        "$ref": "http://determined.ai/schemas/expconf/v0/check-epoch-not-used.json"
+                        "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/check-epoch-not-used.json"
                     },
                     "min_checkpoint_period": {
-                        "$ref": "http://determined.ai/schemas/expconf/v0/check-epoch-not-used.json"
+                        "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/check-epoch-not-used.json"
                     },
                     "searcher": {
-                        "$ref": "http://determined.ai/schemas/expconf/v0/check-epoch-not-used.json"
+                        "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/check-epoch-not-used.json"
                     }
                 }
             }

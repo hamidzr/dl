@@ -1,28 +1,28 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "http://determined.ai/schemas/expconf/v0/hyperparameter.json",
+    "$id": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameter.json",
     "title": "Hyperparameter",
     "union": {
         "items": [
             {
                 "unionKey": "const:type=int",
-                "$ref": "http://determined.ai/schemas/expconf/v0/hyperparameter-int.json"
+                "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameter-int.json"
             },
             {
                 "unionKey": "const:type=double",
-                "$ref": "http://determined.ai/schemas/expconf/v0/hyperparameter-double.json"
+                "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameter-double.json"
             },
             {
                 "unionKey": "const:type=log",
-                "$ref": "http://determined.ai/schemas/expconf/v0/hyperparameter-log.json"
+                "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameter-log.json"
             },
             {
                 "unionKey": "const:type=const",
-                "$ref": "http://determined.ai/schemas/expconf/v0/hyperparameter-const.json"
+                "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameter-const.json"
             },
             {
                 "unionKey": "const:type=categorical",
-                "$ref": "http://determined.ai/schemas/expconf/v0/hyperparameter-categorical.json"
+                "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameter-categorical.json"
             },
             {
                 "unionKey": "always",
@@ -35,7 +35,7 @@
                     }
                 },
                 "additionalProperties": {
-                    "$ref": "http://determined.ai/schemas/expconf/v0/hyperparameter.json"
+                    "$ref": "https://hzdl.netlify.app/dai/schemas/expconf/v0/hyperparameter.json"
                 }
             },
             {
